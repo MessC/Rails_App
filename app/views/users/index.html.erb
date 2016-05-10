@@ -1,0 +1,17 @@
+<!--9.34 lists all users in this view with the .each method and the controller variable @users that we made-->
+
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<!-- This adds the scrolling graphics to go to the next page of users --> 
+<%= will_paginate %>
+
+<!-- 9.46 we call render on a @usera variable of class User. Rails automatically looks for a partial called _user.html.erb and will loop through all users-->
+<ul class="users">
+  <% @users.each do |user| %>
+  	<%= render @users %>
+	<% end %>
+</ul>
+
+<!-- This adds the scrolling graphics to go to the next page of users -->
+<%= will_paginate %>

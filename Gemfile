@@ -5,6 +5,11 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.6'
 # hashes password
 gem 'bcrypt'
+# makes fake users for development purposes should not be used in production, but this is just a sample project
+gem 'faker'
+# both of these are needed to show only x amount of users per page
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 #handles bootstrap and saas
 gem 'bootstrap-sass'
 # Use SCSS for stylesheets
