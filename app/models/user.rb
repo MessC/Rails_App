@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+	# 11.10 To get code like user.micropost to work (method associations)
+	has_many :microposts, dependent: :destroy # 11.18: Ensuring that a user’s microposts are destroyed along with the user
+
   attr_accessor :remember_token, :activation_token, :reset_token #10.42 reset_token
   before_save :downcase_email # before save call back automatically called before save
 	before_create :create_activation_digest # 10.3 before creating call 
@@ -69,6 +72,12 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+	# 11.44
+	# Defines a proto-feed.
+  # See "Following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id) # where method on the Micropost model. Also, escaping id attribute in this SQL statement is a good habit to get into
+  end
 
 	private
 	

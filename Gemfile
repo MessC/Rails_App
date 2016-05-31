@@ -10,6 +10,14 @@ gem 'faker'
 # both of these are needed to show only x amount of users per page
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+
+# 11.55 
+gem 'carrierwave' # used for uploading an image
+# used for resizing image
+gem 'mini_magick'
+gem 'fog'
+
+
 #handles bootstrap and saas
 gem 'bootstrap-sass'
 # Use SCSS for stylesheets

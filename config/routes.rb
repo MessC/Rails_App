@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 	resources :users
 	resources :account_activations, only: [:edit] # 10.1 adding a resource for account activations and named route for edit action
   resources :password_resets,     only: [:new, :create, :edit, :update] # 10.37 Adding a resource for password resets
-
+  resources :microposts,          only: [:create, :destroy] # 11.30 Routes for the micropost resource
 
 
   # The priority is based upon order of creation: first created -> highest priority.

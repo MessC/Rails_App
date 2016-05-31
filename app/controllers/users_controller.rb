@@ -10,9 +10,10 @@ class UsersController < ApplicationController
 		@users = User.paginate(page: params[:page])
 	end
 	
-	
+	#shows a user and in 11.22 we add an @microposts instance variable for the _micropost partial to work
 	def show
 		@user = User.find(params[:id])	
+		@microposts = @user.microposts.paginate(page: params[:page])
 	end
 
 
@@ -73,14 +74,14 @@ class UsersController < ApplicationController
 
 		# Before filters
 
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-				store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+    # Confirms a logged-in user (moved in 11.31 to the base class Application controller, becuase it is used twice in this project (microposts controller)
+    #def logged_in_user
+     # unless logged_in?
+			#	store_location
+       #flash[:danger] = "Please log in."
+        #redirect_to login_url
+      #end
+    #end
 
 		# Confirms the correct user.
     def correct_user
