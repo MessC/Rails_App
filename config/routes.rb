@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   get 'password_resets/new'
-
   get 'password_resets/edit'
-
   get 'sessions/new'
-
   get 'users/new'
 
   root									'static_pages#home'
@@ -15,11 +12,18 @@ Rails.application.routes.draw do
 	get 		'login'   => 	'sessions#new'
 	post 		'login'   => 	'sessions#create'
 	delete 	'logout'  => 	'sessions#destroy'
-	resources :users
+	
+	# 12.15: Adding following and followers actions to the Users controller (generates our RESTful route to look like /users/#/following it was just :users)
+	resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
 	resources :account_activations, only: [:edit] # 10.1 adding a resource for account activations and named route for edit action
   resources :password_resets,     only: [:new, :create, :edit, :update] # 10.37 Adding a resource for password resets
   resources :microposts,          only: [:create, :destroy] # 11.30 Routes for the micropost resource
-
+  resources :relationships,       only: [:create, :destroy] # 12.20: Adding the routes for user relationships
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

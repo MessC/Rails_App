@@ -11,6 +11,9 @@
 					<section class="user_info">
 						<%= render 'shared/user_info' %> <!--partial stored in the same path up until /shared/user_info-->
 					</section>
+					<section class="stats"> <!--12.17: Adding follower stats to the Home page-->
+        		<%= render 'shared/stats' %>
+      		</section>
 					<section class="micropost_form">
 						<%= render 'shared/micropost_form' %> <!--partial stored in the same path up until /shared/micropost_form-->
 					</section>
@@ -23,8 +26,7 @@
 		<% else %>
 			<!--earlier code and our view for a not logged in user-->
 			<div class="center jumbotron">
-				<h1>We The People</h1>
-
+				<h1>Social Media Practice Site Developed with Rails</h1>
 				<h2>
 					This is the home page for the
 					<a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>

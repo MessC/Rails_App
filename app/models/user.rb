@@ -1,6 +1,18 @@
 class User < ActiveRecord::Base
 	# 11.10 To get code like user.micropost to work (method associations)
 	has_many :microposts, dependent: :destroy # 11.18: Ensuring that a user’s microposts are destroyed along with the user
+	# 12.2: Implementing the active relationships has_many association
+	has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+	# 12.12: Implementing user.followers using passive relationships
+	has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :followers, through: :passive_relationships, source: :follower # 12.12: Implementing user.followers using passive relationships
+
+  has_many :following, through: :active_relationships, source: :followed # 12.8: Adding the User model following association
+
 
   attr_accessor :remember_token, :activation_token, :reset_token #10.42 reset_token
   before_save :downcase_email # before save call back automatically called before save
@@ -78,6 +90,24 @@ class User < ActiveRecord::Base
   def feed
     Micropost.where("user_id = ?", id) # where method on the Micropost model. Also, escaping id attribute in this SQL statement is a good habit to get into
   end
+
+	# 12.10 Utility methods for following (associative methods)
+  # Follows a user.
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  # Unfollows a user.
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+
 
 	private
 	
