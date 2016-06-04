@@ -7,9 +7,13 @@
 				<%= @user.name %>
 			</h1>
 		</section>
+	  <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
 	</aside>
 	<!--11.23: Adding microposts to the user show/profile page-->
 	<div class="col-md-8">
+		<%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %> <!--only if list is not empty-->
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">

@@ -88,8 +88,15 @@ class User < ActiveRecord::Base
 	# Defines a proto-feed.
   # See "Following users" for the full implementation.
   def feed
-    Micropost.where("user_id = ?", id) # where method on the Micropost model. Also, escaping id attribute in this SQL statement is a good habit to get into
-  end
+		# 12.45: Using key-value pairs in the feed’s where method
+		# 12.46 The final implementation of the feed.
+		following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
+		# where method on the Micropost model. Also, escaping id attribute in this SQL statement is a good habit to get into
+  	# 12.42 the initial working feed ^ 
+	end
 
 	# 12.10 Utility methods for following (associative methods)
   # Follows a user.
