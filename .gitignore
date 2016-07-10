@@ -16,6 +16,9 @@
 !/log/.keep
 /tmp
 
+# Ignore Spring files.
+/spring/*.pid
+
 # 11.66  Adding the uploads directory to the .gitignore file
 # Ignore uploaded test images.
 /public/uploads
